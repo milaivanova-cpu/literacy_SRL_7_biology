@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Четивна грамотност и саморегулация — 7. клас</title>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #FAFAF7;
+  --surface: #FFFFFF;
+  --surface-alt: #F4F1EC;
+  --text: #1A1A1A;
+  --text-sec: #555;
+  --text-muted: #888;
+  --accent: #2D6A4F;
+  --accent-light: #D8F3DC;
+  --accent-hover: #1B4332;
+  --border: #DDD9D0;
+  --border-light: #EAE7E0;
+  --srl-bg: #FFFCF0;
+  --srl-border: #E8C547;
+  --srl-accent: #A67C00;
+  --demo-bg: #F0F4FF;
+  --demo-border: #7B9ED9;
+  --demo-accent: #2C5282;
+  --error: #C1292E;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+  --shadow-md: 0 4px 14px rgba(0,0,0,0.07);
+  --radius: 8px;
+  --radius-lg: 12px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.65;
+}
+
+/* ---- PROGRESS BAR ---- */
+.progress-bar {
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 10px 20px;
+}
+.progress-inner {
+  max-width: 820px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.progress-track {
+  flex: 1;
+  height: 5px;
+  background: var(--surface-alt);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 3px;
+  transition: width 0.4s ease;
+}
+.progress-label {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+  font-weight: 500;
+  min-width: 120px;
+  text-align: right;
+}
+
+/* ---- CONTAINER ---- */
+.container {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 20px 20px 80px;
+}
+
+/* ---- SECTIONS ---- */
+.section { display: none; animation: fadeIn 0.25s ease; }
+.section.active { display: block; }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ---- HEADER ---- */
+.header {
+  text-align: center;
+  padding: 36px 0 28px;
+  border-bottom: 2px solid var(--accent);
+  margin-bottom: 28px;
+}
+.header h1 {
+  font-family: 'Source Serif 4', serif;
+  font-size: 1.65rem;
+  font-weight: 700;
+  color: var(--accent-hover);
+  margin-bottom: 6px;
+}
+.header .sub { font-size: 0.88rem; color: var(--text-sec); }
+
+/* ---- BLOCK HEADER (for each major block) ---- */
+.block-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+.block-header .block-icon {
+  width: 36px; height: 36px;
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+.block-header .block-icon.reading { background: var(--accent-light); }
+.block-header .block-icon.srl { background: #FFF3D6; }
+.block-header .block-icon.demo { background: #E0EAFF; }
+.block-header .block-title {
+  font-family: 'Source Serif 4', serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--accent-hover);
+}
+.block-header .block-sub {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* ---- PASSAGE ---- */
+.passage-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 24px 28px;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow-sm);
+}
+.passage-card .set-label {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--accent);
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.passage-card .set-title {
+  font-family: 'Source Serif 4', serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 2px;
+}
+.passage-card .set-meta {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border-light);
+}
+.passage-card p { margin-bottom: 10px; font-size: 0.92rem; }
+.passage-card p:last-of-type { margin-bottom: 0; }
+.passage-card .source-note {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  font-style: italic;
+  margin-top: 14px;
+}
+.passage-card table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 14px 0;
+  font-size: 0.82rem;
+}
+.passage-card th {
+  background: var(--surface-alt);
+  padding: 7px 8px;
+  text-align: left;
+  font-weight: 600;
+  border: 1px solid var(--border);
+  font-size: 0.78rem;
+}
+.passage-card td {
+  padding: 6px 8px;
+  border: 1px solid var(--border);
+}
+
+/* ---- QUESTION CARD ---- */
+.question-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px 22px;
+  margin-bottom: 14px;
+  box-shadow: var(--shadow-sm);
+}
+.q-number {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  margin-bottom: 5px;
+}
+.q-text {
+  font-size: 0.92rem;
+  font-weight: 500;
+  margin-bottom: 12px;
+  line-height: 1.45;
+}
+
+/* Options */
+.options-list { display: flex; flex-direction: column; gap: 6px; }
+.option-item {
+  display: flex; align-items: flex-start; gap: 10px;
+  padding: 9px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: all 0.12s ease;
+  font-size: 0.88rem;
+}
+.option-item:hover { background: var(--surface-alt); border-color: var(--accent); }
+.option-item.selected { background: var(--accent-light); border-color: var(--accent); }
+.option-item input[type="radio"] { margin-top: 3px; accent-color: var(--accent); flex-shrink: 0; }
+
+/* Free text */
+.free-text {
+  width: 100%;
+  min-height: 72px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.88rem;
+  resize: vertical;
+  transition: border-color 0.2s;
+}
+.free-text:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-light); }
+
+/* Ordering */
+.ordering-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 8px 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 5px;
+}
+.ordering-item select {
+  width: 48px; padding: 4px;
+  border: 1px solid var(--border); border-radius: 4px;
+  font-family: 'DM Sans', sans-serif; font-size: 0.85rem;
+  text-align: center;
+}
+
+/* Matching */
+.matching-row {
+  display: flex; align-items: center; gap: 12px;
+  padding: 9px 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 5px;
+}
+.matching-row .match-label { flex: 1; font-size: 0.86rem; }
+.matching-row select {
+  width: 52px; padding: 5px;
+  border: 1px solid var(--border); border-radius: 4px;
+  font-family: 'DM Sans', sans-serif; font-size: 0.85rem;
+  text-align: center;
+}
+
+/* ---- LIKERT (SRL) ---- */
+.srl-intro {
+  background: var(--srl-bg);
+  border: 1px solid var(--srl-border);
+  border-left: 4px solid var(--srl-accent);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  font-size: 0.88rem;
+}
+.srl-intro strong { color: var(--srl-accent); }
+
+.srl-construct-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 700;
+  color: var(--srl-accent);
+  margin: 24px 0 10px;
+  padding-bottom: 6px;
+  border-bottom: 1px dashed var(--srl-border);
+}
+.srl-construct-label:first-of-type { margin-top: 0; }
+
+.likert-card {
+  background: #FFFEF8;
+  border: 1px solid var(--srl-border);
+  border-radius: var(--radius);
+  padding: 14px 18px;
+  margin-bottom: 10px;
+}
+.likert-text { font-size: 0.88rem; margin-bottom: 8px; line-height: 1.4; }
+.likert-scale { display: flex; gap: 0; }
+.likert-option {
+  flex: 1;
+  text-align: center;
+  padding: 7px 2px;
+  border: 1px solid var(--border);
+  cursor: pointer;
+  font-size: 0.72rem;
+  transition: all 0.12s ease;
+  background: var(--surface);
+  line-height: 1.2;
+}
+.likert-option:first-child { border-radius: var(--radius) 0 0 var(--radius); }
+.likert-option:last-child { border-radius: 0 var(--radius) var(--radius) 0; }
+.likert-option:hover { background: var(--surface-alt); }
+.likert-option.selected {
+  background: var(--srl-accent);
+  color: white;
+  border-color: var(--srl-accent);
+  font-weight: 600;
+}
+
+/* ---- DEMO QUESTIONS ---- */
+.demo-card {
+  background: var(--demo-bg);
+  border: 1px solid var(--demo-border);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  margin-bottom: 12px;
+}
+.demo-card .demo-label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+.demo-card select, .demo-card input[type="text"] {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid var(--demo-border);
+  border-radius: var(--radius);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.88rem;
+  background: white;
+}
+.demo-options { display: flex; flex-direction: column; gap: 5px; }
+.demo-option {
+  display: flex; align-items: center; gap: 8px;
+  padding: 7px 12px;
+  border: 1px solid var(--demo-border);
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-size: 0.85rem;
+  background: white;
+  transition: all 0.12s;
+}
+.demo-option:hover { background: #E8F0FE; }
+.demo-option.selected { background: #C5D9F2; border-color: var(--demo-accent); }
+.demo-option input { accent-color: var(--demo-accent); }
+
+/* ---- NAVIGATION ---- */
+.nav-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 28px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+.btn {
+  padding: 9px 22px;
+  border: none;
+  border-radius: var(--radius);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.btn-primary { background: var(--accent); color: white; }
+.btn-primary:hover { background: var(--accent-hover); }
+.btn-secondary { background: transparent; color: var(--text-sec); border: 1px solid var(--border); }
+.btn-secondary:hover { background: var(--surface-alt); }
+
+/* text-ref button to go back to passage */
+.text-ref-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 12px;
+  background: var(--accent-light);
+  color: var(--accent-hover);
+  border: 1px solid var(--accent);
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 14px;
+  transition: all 0.12s;
+}
+.text-ref-btn:hover { background: var(--accent); color: white; }
+
+/* ---- RESULTS ---- */
+.results-section {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 22px;
+  margin-bottom: 18px;
+  box-shadow: var(--shadow-sm);
+}
+.results-section h3 {
+  font-family: 'Source Serif 4', serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--accent-hover);
+  margin-bottom: 14px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+.score-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.score-cell {
+  padding: 12px;
+  background: var(--surface-alt);
+  border-radius: var(--radius);
+  text-align: center;
+}
+.score-cell .score-label {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  margin-bottom: 3px;
+}
+.score-cell .score-value { font-size: 1.4rem; font-weight: 700; color: var(--accent-hover); }
+.score-cell .score-max { font-size: 0.78rem; color: var(--text-muted); }
+
+.srl-profile-row {
+  display: flex; align-items: center; gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border-light);
+}
+.srl-profile-row:last-child { border-bottom: none; }
+.srl-profile-label { width: 160px; font-size: 0.82rem; font-weight: 500; flex-shrink: 0; }
+.srl-bar-container { flex: 1; height: 18px; background: var(--surface-alt); border-radius: 9px; overflow: hidden; }
+.srl-bar-fill { height: 100%; border-radius: 9px; transition: width 0.5s ease; }
+.srl-bar-fill.c1 { background: #1565C0; }
+.srl-bar-fill.c2 { background: #E65100; }
+.srl-bar-fill.c3 { background: var(--accent); }
+.srl-bar-fill.c4 { background: #7B1FA2; }
+.srl-bar-fill.c5 { background: #C62828; }
+.srl-bar-fill.c6 { background: #00838F; }
+.srl-bar-fill.c7 { background: #4527A0; }
+.srl-profile-value { width: 46px; text-align: right; font-weight: 600; font-size: 0.82rem; }
+
+/* ---- PRINT ---- */
+@media print {
+  .progress-bar, .nav-row, .text-ref-btn { display: none !important; }
+  .section { display: block !important; page-break-inside: avoid; }
+  body { background: white; }
+}
+
+/* ---- RESPONSIVE ---- */
+@media (max-width: 600px) {
+  .container { padding: 14px 12px 60px; }
+  .header h1 { font-size: 1.3rem; }
+  .passage-card { padding: 16px; }
+  .score-grid { grid-template-columns: 1fr; }
+  .srl-profile-label { width: 110px; font-size: 0.78rem; }
+  .likert-option { font-size: 0.62rem; padding: 5px 1px; }
+}
+</style>
+</head>
+<body>
+
+<div class="progress-bar">
+  <div class="progress-inner">
+    <div class="progress-track">
+      <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+    </div>
+    <span class="progress-label" id="progressLabel">Начало</span>
+  </div>
+</div>
+
+<div class="container" id="app"></div>
+
+<script>
+// ============================================================
+// DATA
+// ============================================================
+
+const PASSAGES = {
+  set1: {
+    label: 'Набор 1',
+    title: 'Класификацията на организмите — ред в многообразието',
+    meta: 'Непрекъснат текст · Изложение',
+    html: `<p>На Земята съществуват милиони видове организми. За да могат учените да изучават и сравняват тази огромна разнообразност, те са създали система за класификация. Тя групира организмите по сходство и родствени връзки.</p>
+<p>Основната единица в класификацията е видът. Организмите от един и същи вид могат да се размножават помежду си и да дават плодовито потомство. Сродните видове се обединяват в род, сродните родове — в семейство, семействата — в разред, разредите — в клас, класовете — в тип или отдел, а типовете — в царство. Тази йерархична система позволява на учените по целия свят да говорят за един и същи организъм, без да се объркват.</p>
+<p>Съвременната наука разграничава пет царства организми: Монера, Протиста, Гъби, Растения и Животни. Царство Монера включва само прокариотни организми — бактерии, чиито клетки нямат оформено клетъчно ядро. Останалите четири царства се състоят от еукариотни организми — техните клетки имат ядро, оградено с мембрана.</p>
+<p>Критерият за класификация не винаги е бил родствените връзки между организмите. В миналото учените са групирали организмите само по външен вид и начин на живот. Съвременната класификация обаче отчита преди всичко еволюционната близост — колко сродни са организмите в историческото си развитие. Именно затова делфините, въпреки че живеят във водата, са класифицирани при бозайниците, а не при рибите.</p>
+<p class="source-note">По учебно съдържание по Биология и здравно образование за VII клас</p>`
+  },
+  set2: {
+    label: 'Набор 2',
+    title: 'Гъбичните инфекции — невидими, но реални',
+    meta: 'Непрекъснат текст · Аргументация / Изложение',
+    html: `<p>Всяка година милиони хора по света се заразяват с гъбички. Въпреки че гъбичните инфекции рядко застрашават живота, те причиняват значителен дискомфорт и, ако не се лекуват навреме, могат да се усложнят сериозно.</p>
+<p>Гъбичките са организми от царство Гъби. За разлика от бактериите, те имат еукариотни клетки — с оформено клетъчно ядро. Хранят се чрез сапрофитно хранене: отделят храносмилателни вещества в средата и поглъщат разградените продукти. Именно тази особеност позволява на паразитните гъбички да разграждат и увреждат тъканите на гостоприемника.</p>
+<p>Един от най-честите причинители е гъбичката <em>Candida albicans</em>. Тя обитава нормално кожата и лигавиците на здравия човек, но при отслабен имунитет, приемане на антибиотици или лоша хигиена се размножава неконтролирано. Признаците включват сърбеж, зачервяване и белезникав налеп. Засегнати могат да бъдат устната кухина, кожата и ноктите.</p>
+<p>Друг разпространен причинител е гъбичката дерматофит, която причинява т.нар. „атлетско стъпало" — инфекция, разпространена сред хора, които ходят боси в обществени места като басейни и фитнес зали.</p>
+<p>Превенцията на гъбичните инфекции е сравнително лесна: поддържане на добра лична хигиена, носене на подходящо обувало в обществени места, избягване на прекомерното приемане на антибиотици и укрепване на имунитета чрез здравословен начин на живот. При поява на признаци е важно да се потърси лекарска помощ навреме, а не да се самолекуваме.</p>
+<p class="source-note">По учебно съдържание по Биология и здравно образование за VII клас</p>`
+  },
+  set3: {
+    label: 'Набор 3',
+    title: 'Гръбначните животни — стъпки в еволюцията',
+    meta: 'Смесен текст · Описание + Сравнителна таблица',
+    html: `<p>Гръбначните животни образуват подтип на царство Животни. Общата им характеристика е наличието на гръбначен стълб, който защитава гръбначния мозък и осигурява опора на тялото. Въпреки тази обща черта, петте основни класа гръбначни животни — риби, земноводни, влечуги, птици и бозайници — се различават значително по начин на дишане, размножаване и температура на тялото.</p>
+<p>Рибите са най-древната група гръбначни. Те дишат с хриле и живеят изключително във вода. Земноводните (жаби, саламандри) са направили еволюционната крачка към сушата, но все още се размножават във вода и дишат едновременно с бели дробове и кожа. Влечугите (змии, гущери, костенурки) са се адаптирали напълно към сухоземния живот — дишат само с бели дробове и снасят яйца с твърда черупка на сушата.</p>
+<p>Птиците и бозайниците са топлокръвни — поддържат постоянна телесна температура независимо от средата. Птиците дишат с бели дробове, снасят яйца и имат пера. Бозайниците раждат живи малки (с малки изключения) и ги кърмят с мляко. Именно тази черта — кърменето — е характерна само за бозайниците.</p>
+<p class="source-note">По учебно съдържание по Биология и здравно образование за VII клас</p>
+<table>
+<tr><th>Клас</th><th>Дишане</th><th>Размножаване</th><th>Температура</th><th>Среда</th></tr>
+<tr><td>Риби</td><td>Хриле</td><td>Яйца (вода)</td><td>Студенокръвни</td><td>Вода</td></tr>
+<tr><td>Земноводни</td><td>Б. дробове + кожа</td><td>Яйца (вода)</td><td>Студенокръвни</td><td>Вода и суша</td></tr>
+<tr><td>Влечуги</td><td>Бели дробове</td><td>Яйца (суша)</td><td>Студенокръвни</td><td>Суша</td></tr>
+<tr><td>Птици</td><td>Бели дробове</td><td>Яйца (суша)</td><td>Топлокръвни</td><td>Суша/въздух</td></tr>
+<tr><td>Бозайници</td><td>Бели дробове</td><td>Живи малки</td><td>Топлокръвни</td><td>Суша/вода</td></tr>
+</table>`
+  }
+};
+
+const SECTIONS = [
+  // ===== INTRO =====
+  { id: 'intro', type: 'intro', progress: 'Начало' },
+
+  // ===== BLOCK 1: READING — SET 1 =====
+  { id: 's1-text', type: 'passage', set: 'set1', progress: 'Набор 1 — Текст' },
+  {
+    id: 's1-q', type: 'questions', set: 'set1', progress: 'Набор 1 — Въпроси',
+    questions: [
+      { id:'q71-1', code:'Ч71-1', level:'Н1', text:'Коя е основната единица в класификацията на организмите?', type:'mc',
+        options:['Царство','Род','Вид','Семейство'], correct:2, points:1 },
+      { id:'q71-2', code:'Ч71-2', level:'Н1', text:'Кое НЕ е вярно според текста?', type:'mc',
+        options:['Организмите от един вид могат да се размножават помежду си.','Царство Монера включва организми с еукариотни клетки.','Съвременната класификация отчита родствените връзки между организмите.','Типовете организми се обединяват в царства.'],
+        correct:1, points:1 },
+      { id:'q71-3', code:'Ч71-3', level:'Н1', text:'Наредете таксономичните категории от най-малката към най-голямата (1–5):', type:'ordering',
+        items:['Царство','Вид','Клас','Семейство','Род'], correct:[5,1,4,3,2], points:1 },
+      { id:'q71-4', code:'Ч71-4', level:'Н2', text:'Защо делфините са класифицирани при бозайниците, а не при рибите?', type:'mc',
+        options:['Защото делфините са по-едри от повечето риби.','Защото делфините не живеят в морето целогодишно.','Защото класификацията отчита родствените връзки, а не начина на живот.','Защото делфините дишат с хриле, а не с бели дробове.'],
+        correct:2, points:1 },
+      { id:'q71-5', code:'Ч71-5', level:'Н1', text:'В какво се различават еукариотните от прокариотните клетки според текста?', type:'free', points:1 },
+      { id:'q71-6', code:'Ч71-6', level:'Н2', text:'Каква е основната цел на класификационната система според текста?', type:'mc',
+        options:['Да позволи на учените да дават нови имена на организмите.','Да улесни сравнението и изучаването на огромното многообразие от организми.','Да докаже, че всички организми произхождат от един общ прародител.','Да разграничи вредните от полезните за човека организми.'],
+        correct:1, points:1 }
+    ]
+  },
+
+  // ===== BLOCK 1: READING — SET 2 =====
+  { id: 's2-text', type: 'passage', set: 'set2', progress: 'Набор 2 — Текст' },
+  {
+    id: 's2-q', type: 'questions', set: 'set2', progress: 'Набор 2 — Въпроси',
+    questions: [
+      { id:'q72-1', code:'Ч72-1', level:'Н2', text:'За кого/какво е текстът?', type:'mc',
+        options:['За опасните видове гъби в природата и тяхното отровно действие.','За гъбичните инфекции — причинители, признаци и начини за превенция.','За разликата между царство Гъби и царство Монера.','За ползите от гъбичките в природата и медицината.'],
+        correct:1, points:1 },
+      { id:'q72-2', code:'Ч72-2', level:'Н1', text:'При какви условия Candida albicans се размножава неконтролирано? Посочи три условия от текста.', type:'free', points:3 },
+      { id:'q72-3', code:'Ч72-3', level:'Н2', text:'Защо паразитните гъбички могат да увреждат тъканите на гостоприемника?', type:'mc',
+        options:['Защото имат прокариотни клетки без ядро.','Защото отделят храносмилателни вещества в средата и разграждат тъканите.','Защото се размножават само при висока температура.','Защото гъбичките нямат собствена клетъчна мембрана.'],
+        correct:1, points:1 },
+      { id:'q72-4', code:'Ч72-4', level:'Н2', text:'До всяка мярка за превенция напишете цифрата на заплахата, срещу която е насочена.', type:'matching',
+        leftItems:['А) Носене на обувки в басейна','Б) Здравословен начин на живот','В) Добра лична хигиена'],
+        rightItems:['1. Отслабен имунитет','2. Зараза с дерматофит','3. Размножаване на Candida','4. Вирусни инфекции'],
+        correct:[2,1,3], points:3 },
+      { id:'q72-5', code:'Ч72-5', level:'Н3', text:'Може ли да се направи извод от текста, че гъбичните инфекции са по-опасни от бактериалните? Обосновай отговора си.', type:'free', points:2 },
+      { id:'q72-6', code:'Ч72-6', level:'Н2', text:'Гъбичките имат еукариотни клетки. Кое царство организми също включва само еукариотни организми?', type:'mc',
+        options:['Само царство Монера.','Само царство Протиста.','Царствата Протиста, Растения и Животни.','Всичките пет царства имат еукариотни клетки.'],
+        correct:2, points:1 }
+    ]
+  },
+
+  // ===== BLOCK 1: READING — SET 3 =====
+  { id: 's3-text', type: 'passage', set: 'set3', progress: 'Набор 3 — Текст' },
+  {
+    id: 's3-q', type: 'questions', set: 'set3', progress: 'Набор 3 — Въпроси',
+    questions: [
+      { id:'q73-1', code:'Ч73-1', level:'Н1', text:'Кое е вярно според текста?', type:'mc',
+        options:['Земноводните дишат само с бели дробове.','Влечугите се размножават изключително във вода.','Птиците и бозайниците са топлокръвни животни.','Рибите могат да живеят едновременно във вода и на суша.'],
+        correct:2, points:1 },
+      { id:'q73-2', code:'Ч73-2', level:'Н1', text:'Кои класове гръбначни животни са студенокръвни според таблицата?', type:'free', points:1 },
+      { id:'q73-3', code:'Ч73-3', level:'Н2', text:'Кой клас е направил еволюционната крачка от водата към сушата, но все още е свързан с водната среда за размножаването си? Как го разбираш от текста И от таблицата?', type:'free', points:2 },
+      { id:'q73-4', code:'Ч73-4', level:'Н2', text:'Кое твърдение от таблицата се потвърждава в текста?', type:'mc',
+        options:['Рибите живеят само в солена вода.','Бозайниците раждат живи малки и ги кърмят с мляко.','Птиците са единствените животни с бели дробове.','Влечугите са топлокръвни, защото живеят на суша.'],
+        correct:1, points:1 },
+      { id:'q73-5', code:'Ч73-5', level:'Н3', text:'Ученик твърди: „Всички животни, които снасят яйца, са студенокръвни." Опровергай това твърдение с данни от таблицата.', type:'free', points:2 },
+      { id:'q73-6', code:'Ч73-6', level:'Н2', text:'Ако наредим класовете по реда на еволюцията (от най-древните), кой ред е верен?', type:'mc',
+        options:['Бозайници → Птици → Влечуги → Земноводни → Риби','Риби → Земноводни → Влечуги → Птици → Бозайници','Земноводни → Риби → Влечуги → Бозайници → Птици','Влечуги → Земноводни → Риби → Птици → Бозайници'],
+        correct:1, points:1 }
+    ]
+  },
+
+  // ===== BLOCK 2: SRL QUESTIONNAIRE =====
+  { id: 'srl', type: 'srl', progress: 'Саморегулация' },
+
+  // ===== BLOCK 3: DEMOGRAPHICS =====
+  { id: 'demo', type: 'demo', progress: 'За теб' },
+
+  // ===== RESULTS =====
+  { id: 'results', type: 'results', progress: 'Резултати' }
+];
+
+// SRL items grouped by construct
+// Self-efficacy: contextualized to reading scientific texts (per Bandura 2006)
+// SRL strategies: contextual stem "Когато чета научен текст, за да науча нещо ново..."
+// Collaboration: separate social-context scale
+const SRL_CONSTRUCTS = [
+  {
+    name: 'Самоефикасност за четене на научни текстове',
+    color: 'c1',
+    stem: 'Колко си съгласен/съгласна с всяко от следните твърдения?',
+    items: [
+      { id: 'se-1', text: 'Сигурен/сигурна съм, че мога да разбера научен текст по биология, дори когато съдържа непознати термини.', src: 'adapted-St01Q01' },
+      { id: 'se-2', text: 'Мога да открия главната идея в научен текст, дори когато информацията е сложна.', src: 'adapted-St01Q03' },
+      { id: 'se-3', text: 'Ако положа достатъчно усилия, мога да отговоря правилно на трудни въпроси по текст.', src: 'adapted-St01Q04' },
+      { id: 'se-4', text: 'Когато чета научен текст с таблица или диаграма, мога да свържа информацията от тях с текста.', src: 'adapted-new' }
+    ]
+  },
+  {
+    name: 'Планиране',
+    color: 'c2',
+    stem: 'Когато предстои да четеш текст или да решаваш задача...',
+    items: [
+      { id: 'srl-p1', text: 'Обмислям няколко начина за решаването на задачата и след това избирам най-подходящия.', src: 'St16Q12' },
+      { id: 'srl-p2', text: 'Определям как да подходя към задачата, преди да започна.', src: 'St05Q03' },
+      { id: 'srl-p3', text: 'Стремя се да обмисля темата и да преценя какво трябва да науча, вместо просто да прочета текста.', src: 'Стратегии' },
+      { id: 'srl-p4', text: 'Внимателно планирам последователността от действия, които трябва да предприема.', src: 'St05Q01' }
+    ]
+  },
+  {
+    name: 'Мониторинг',
+    color: 'c3',
+    stem: 'Докато четеш научен текст или работиш по задача...',
+    items: [
+      { id: 'srl-m1', text: 'Си задавам въпроси, за да се уверя, че разбирам материала.', src: 'St16Q09' },
+      { id: 'srl-m2', text: 'Веднага щом разбера, че нещата не вървят добре, се стремя да предприема нещо.', src: 'St16Q01' },
+      { id: 'srl-m3', text: 'Ако не разбирам нещо, търся допълнителна информация, за да си го изясня.', src: 'St15Q01' },
+      { id: 'srl-m4', text: 'Когато не разбирам нещо, моля учителя за пояснение.', src: 'St15Q03' }
+    ]
+  },
+  {
+    name: 'Стратегии за задълбочено разбиране',
+    color: 'c4',
+    stem: 'Когато четеш научен текст, за да научиш нещо ново...',
+    items: [
+      { id: 'srl-d1', text: 'Стремя се да свържа новата информация с това, което вече зная по темата.', src: 'St14Q01' },
+      { id: 'srl-d2', text: 'Опитвам се да разбера по-добре материала, като го свържа с моя личен опит.', src: 'St14Q02' },
+      { id: 'srl-d3', text: 'Обобщавам най-важната информация с мои думи.', src: 'St14Q05' },
+      { id: 'srl-d4', text: 'Опитвам се да свържа новата информация с информация от други учебни предмети.', src: 'Стратегии' },
+      { id: 'srl-d5', text: 'От време на време преглеждам това, което вече съм прочел/а, за да проверя дали го разбирам.', src: 'Стратегии-задълбочено' }
+    ]
+  },
+  {
+    name: 'Стратегии за запаметяване',
+    color: 'c5',
+    stem: 'Когато четеш научен текст, за да научиш нещо ново...',
+    items: [
+      { id: 'srl-r1', text: 'Опитвам се да запомня възможно най-много подробности.', src: 'Декодиране' },
+      { id: 'srl-r2', text: 'Чета текста толкова пъти, колкото е необходимо, за да мога да го преразкажа.', src: 'Декодиране' },
+      { id: 'srl-r3', text: 'Си подчертавам най-важните откъси.', src: 'Стратегии' },
+      { id: 'srl-r4', text: 'Си правя записки.', src: 'Стратегии' }
+    ]
+  },
+  {
+    name: 'Оценка и рефлексия',
+    color: 'c6',
+    stem: 'След като приключиш с четенето или подготовката...',
+    items: [
+      { id: 'srl-e1', text: 'Питам се дали съм научил/а това, което съм искал/а да науча.', src: 'St16Q06' },
+      { id: 'srl-e2', text: 'Дори когато не се представям добре, се опитвам да се уча от грешките си.', src: 'St02Q04' },
+      { id: 'srl-e3', text: 'Преглеждам бележките си, за да разбера по-добре материала.', src: 'Стратегии' }
+    ]
+  },
+  {
+    name: 'Сътрудничество със съученици',
+    color: 'c7',
+    stem: 'Когато учиш или се подготвяш...',
+    items: [
+      { id: 'srl-c1', text: 'Често отделям време, за да обсъдя изучавания материал с мои съученици.', src: 'St07Q01' },
+      { id: 'srl-c2', text: 'Стремя се да работя с други ученици от моя клас, за да изпълня поставените задачи.', src: 'St07Q02' },
+      { id: 'srl-c3', text: 'Често се опитвам да обясня материала на съученик или приятел.', src: 'St07Q03' }
+    ]
+  }
+];
+
+// Demographics
+const DEMO_QUESTIONS = [
+  { id: 'demo-gender', label: 'Пол', type: 'select', options: ['Момче', 'Момиче', 'Предпочитам да не отговарям'] },
+  { id: 'demo-books', label: 'Приблизително колко книги имате вкъщи?', type: 'select',
+    options: ['0–10 книги', '11–25 книги', '26–100 книги', '101–200 книги', 'Над 200 книги'] },
+  { id: 'demo-edu-parent', label: 'Какво е най-високото образование, което поне един от родителите ти е завършил?', type: 'select',
+    options: ['Основно образование или по-малко', 'Средно образование', 'Бакалавър (висше)', 'Магистър или докторска степен', 'Не знам'] },
+  { id: 'demo-language', label: 'Какъв език говорите най-често вкъщи?', type: 'select',
+    options: ['Български', 'Турски', 'Ромски', 'Друг език'] },
+  { id: 'demo-read-freq', label: 'Колко често четеш за удоволствие (не за училище)?', type: 'select',
+    options: ['Почти всеки ден', 'Няколко пъти седмично', 'Няколко пъти месечно', 'Рядко', 'Никога'] }
+];
+
+// ============================================================
+// STATE
+// ============================================================
+let currentSection = 0;
+const R = {}; // all responses
+
+// ============================================================
+// RENDER
+// ============================================================
+function render() {
+  const sec = SECTIONS[currentSection];
+  const total = SECTIONS.length - 1;
+  const pct = Math.round((currentSection / total) * 100);
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressLabel').textContent = sec.progress;
+
+  const app = document.getElementById('app');
+  let html = '';
+
+  switch (sec.type) {
+    case 'intro': html = rIntro(); break;
+    case 'passage': html = rPassage(sec); break;
+    case 'questions': html = rQuestions(sec); break;
+    case 'srl': html = rSRL(); break;
+    case 'demo': html = rDemo(); break;
+    case 'results': html = rResults(); break;
+  }
+
+  app.innerHTML = html;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  bindAll();
+}
+
+function rIntro() {
+  return `
+    <div class="header">
+      <h1>Четивна грамотност и саморегулация</h1>
+      <p class="sub">Диагностичен инструмент · 7. клас · Биология и здравно образование</p>
+    </div>
+    <div class="passage-card">
+      <p style="margin-bottom:14px;">Ще прочетеш <strong>три научни текста</strong> и ще отговориш на въпроси за всеки от тях. След текстовете ще има кратък въпросник за начина, по който учиш, и няколко въпроса за теб.</p>
+      <p style="margin-bottom:14px;">Инструментът измерва две неща:</p>
+      <p style="padding-left:16px; margin-bottom:6px;">📖 <strong>Четивна грамотност</strong> — доколко разбираш, тълкуваш и оценяваш информация от текст.</p>
+      <p style="padding-left:16px; margin-bottom:14px;">🧠 <strong>Саморегулация на ученето</strong> — как планираш, наблюдаваш и оценяваш собственото си учене.</p>
+      <p style="font-size:0.82rem; color:var(--text-muted);">Очаквано време: 25–35 минути. На въпросника за саморегулация няма верни или грешни отговори.</p>
+    </div>
+    <div class="nav-row">
+      <div></div>
+      <button class="btn btn-primary" onclick="goNext()">Започни →</button>
+    </div>`;
+}
+
+function rPassage(sec) {
+  const p = PASSAGES[sec.set];
+  return `
+    <div class="block-header">
+      <div class="block-icon reading">📖</div>
+      <div><div class="block-title">${p.label}</div><div class="block-sub">${p.meta}</div></div>
+    </div>
+    <div class="passage-card">
+      <div class="set-title">${p.title}</div>
+      <div class="set-meta">${p.meta}</div>
+      ${p.html}
+    </div>
+    <div class="nav-row">
+      <button class="btn btn-secondary" onclick="goPrev()">← Назад</button>
+      <button class="btn btn-primary" onclick="goNext()">Към въпросите →</button>
+    </div>`;
+}
+
+function rQuestions(sec) {
+  const p = PASSAGES[sec.set];
+  // Find the passage section index for back-nav
+  const passIdx = SECTIONS.findIndex(s => s.id === sec.set.replace('set', 's') + '-text');
+
+  let html = `
+    <div class="block-header">
+      <div class="block-icon reading">📖</div>
+      <div><div class="block-title">Въпроси — ${p.label}</div><div class="block-sub">${p.meta}</div></div>
+    </div>
+    <button class="text-ref-btn" onclick="goTo(${passIdx})">↩ Виж текста отново</button>`;
+
+  sec.questions.forEach(q => {
+    html += `<div class="question-card">`;
+    html += `<div class="q-number">${q.code} · ${q.level}</div>`;
+    html += `<div class="q-text">${q.text}</div>`;
+
+    if (q.type === 'mc') {
+      html += `<div class="options-list">`;
+      q.options.forEach((opt, i) => {
+        const sel = R[q.id] === i ? 'selected' : '';
+        html += `<label class="option-item ${sel}" data-qid="${q.id}" data-val="${i}">
+          <input type="radio" name="${q.id}" value="${i}" ${R[q.id]===i?'checked':''}>
+          <span>${opt}</span></label>`;
+      });
+      html += `</div>`;
+    } else if (q.type === 'free') {
+      html += `<textarea class="free-text" data-qid="${q.id}" placeholder="Напиши отговора си тук...">${R[q.id]||''}</textarea>`;
+    } else if (q.type === 'ordering') {
+      q.items.forEach((item, i) => {
+        const val = R[q.id] ? R[q.id][i] : '';
+        html += `<div class="ordering-item">
+          <select data-qid="${q.id}" data-idx="${i}">
+            <option value="">—</option>
+            ${[1,2,3,4,5].map(n=>`<option value="${n}" ${val==n?'selected':''}>${n}</option>`).join('')}
+          </select><span>${item}</span></div>`;
+      });
+    } else if (q.type === 'matching') {
+      html += `<div style="font-size:0.8rem;color:var(--text-muted);margin-bottom:8px;">`;
+      q.rightItems.forEach(r => { html += `${r}<br>`; });
+      html += `</div>`;
+      q.leftItems.forEach((item, i) => {
+        const val = R[q.id] ? R[q.id][i] : '';
+        html += `<div class="matching-row">
+          <span class="match-label">${item}</span>
+          <select data-qid="${q.id}" data-idx="${i}">
+            <option value="">—</option>
+            ${[1,2,3,4].map(n=>`<option value="${n}" ${val==n?'selected':''}>${n}</option>`).join('')}
+          </select></div>`;
+      });
+    }
+    html += `</div>`;
+  });
+
+  html += `<div class="nav-row">
+    <button class="btn btn-secondary" onclick="goPrev()">← Назад</button>
+    <button class="btn btn-primary" onclick="goNext()">Продължи →</button>
+  </div>`;
+  return html;
+}
+
+function rSRL() {
+  let html = `
+    <div class="block-header">
+      <div class="block-icon srl">🧠</div>
+      <div><div class="block-title">Как учиш?</div><div class="block-sub">Въпросник за саморегулация на ученето</div></div>
+    </div>
+    <div class="srl-intro">
+      <strong>Няма верни или грешни отговори.</strong> За всяко твърдение избери колко често то се отнася за теб — от „Никога" до „Винаги". Прочети внимателно уводното изречение преди всяка група въпроси.
+    </div>`;
+
+  SRL_CONSTRUCTS.forEach(construct => {
+    html += `<div class="srl-construct-label">${construct.name}</div>`;
+    if (construct.stem) {
+      html += `<div style="font-size:0.85rem;color:var(--text-sec);margin-bottom:12px;font-style:italic;padding-left:2px;">${construct.stem}</div>`;
+    }
+    construct.items.forEach(item => {
+      html += `<div class="likert-card">
+        <div class="likert-text">${item.text}</div>
+        <div class="likert-scale">
+          ${[
+            {l:'Никога',v:1},{l:'Рядко',v:2},{l:'Понякога',v:3},{l:'Често',v:4},{l:'Винаги',v:5}
+          ].map(o => {
+            const sel = R[item.id] === o.v ? 'selected' : '';
+            return `<div class="likert-option ${sel}" data-qid="${item.id}" data-val="${o.v}">${o.l}</div>`;
+          }).join('')}
+        </div>
+      </div>`;
+    });
+  });
+
+  html += `<div class="nav-row">
+    <button class="btn btn-secondary" onclick="goPrev()">← Назад</button>
+    <button class="btn btn-primary" onclick="goNext()">Продължи →</button>
+  </div>`;
+  return html;
+}
+
+function rDemo() {
+  let html = `
+    <div class="block-header">
+      <div class="block-icon demo">📋</div>
+      <div><div class="block-title">Няколко въпроса за теб</div><div class="block-sub">Тази информация помага за анализа — отговорите са анонимни.</div></div>
+    </div>`;
+
+  DEMO_QUESTIONS.forEach(dq => {
+    html += `<div class="demo-card">
+      <div class="demo-label">${dq.label}</div>
+      <div class="demo-options">`;
+    dq.options.forEach((opt, i) => {
+      const sel = R[dq.id] === i ? 'selected' : '';
+      html += `<label class="demo-option ${sel}" data-qid="${dq.id}" data-val="${i}">
+        <input type="radio" name="${dq.id}" value="${i}" ${R[dq.id]===i?'checked':''}>
+        <span>${opt}</span></label>`;
+    });
+    html += `</div></div>`;
+  });
+
+  html += `<div class="nav-row">
+    <button class="btn btn-secondary" onclick="goPrev()">← Назад</button>
+    <button class="btn btn-primary" onclick="goNext()">Виж резултатите →</button>
+  </div>`;
+  return html;
+}
+
+function rResults() {
+  // Reading scores
+  const scores = { total:0, max:0, n1:0, n1m:0, n2:0, n2m:0, n3:0, n3m:0 };
+  let freeItems = [];
+
+  SECTIONS.filter(s=>s.type==='questions').forEach(sec => {
+    sec.questions.forEach(q => {
+      const lk = q.level === 'Н1' ? 'n1' : q.level === 'Н2' ? 'n2' : 'n3';
+      scores[lk+'m'] += q.points;
+      scores.max += q.points;
+
+      if (q.type === 'mc') {
+        if (R[q.id] === q.correct) { scores[lk] += q.points; scores.total += q.points; }
+      } else if (q.type === 'ordering') {
+        if (R[q.id] && q.correct.every((v,i) => R[q.id][i]==v)) { scores[lk] += q.points; scores.total += q.points; }
+      } else if (q.type === 'matching') {
+        if (R[q.id]) {
+          let m = 0;
+          q.correct.forEach((v,i) => { if(R[q.id][i]==v) m++; });
+          scores[lk] += m; scores.total += m;
+        }
+      } else if (q.type === 'free') {
+        freeItems.push(q);
+      }
+    });
+  });
+
+  // SRL scores
+  const srlData = SRL_CONSTRUCTS.map(c => {
+    const vals = c.items.map(it => R[it.id]).filter(v => v);
+    const avg = vals.length ? (vals.reduce((a,b)=>a+b,0)/vals.length) : 0;
+    const pct = vals.length ? Math.round((vals.reduce((a,b)=>a+b,0)/(vals.length*5))*100) : 0;
+    return { name: c.name, color: c.color, avg: avg.toFixed(1), pct, n: vals.length, total: c.items.length };
+  });
+
+  // Demo summary
+  const demoSummary = DEMO_QUESTIONS.map(dq => {
+    const val = R[dq.id] !== undefined ? dq.options[R[dq.id]] : '—';
+    return { label: dq.label, value: val };
+  });
+
+  let html = `
+    <div class="header">
+      <h1>Диагностичен профил</h1>
+      <p class="sub">Четивна грамотност · Саморегулация · Контекст</p>
+    </div>
+
+    <div class="results-section">
+      <h3>📖 Четивна грамотност — автоматичен резултат</h3>
+      <div class="score-grid">
+        <div class="score-cell">
+          <div class="score-label">Общо (авто)</div>
+          <div class="score-value">${scores.total} <span class="score-max">/ ${scores.max}</span></div>
+        </div>
+        <div class="score-cell">
+          <div class="score-label">Н1 — Намери</div>
+          <div class="score-value">${scores.n1} <span class="score-max">/ ${scores.n1m}</span></div>
+        </div>
+        <div class="score-cell">
+          <div class="score-label">Н2 — Тълкувай</div>
+          <div class="score-value">${scores.n2} <span class="score-max">/ ${scores.n2m}</span></div>
+        </div>
+        <div class="score-cell">
+          <div class="score-label">Н3 — Прецени</div>
+          <div class="score-value">${scores.n3} <span class="score-max">/ ${scores.n3m}</span></div>
+        </div>
+      </div>
+      <p style="font-size:0.78rem;color:var(--text-muted);margin-top:10px;">⚠ ${freeItems.length} свободни отговора изискват ръчно оценяване.</p>
+    </div>
+
+    <div class="results-section">
+      <h3>🧠 Профил на саморегулация</h3>`;
+
+  srlData.forEach(s => {
+    html += `<div class="srl-profile-row">
+      <span class="srl-profile-label">${s.name}</span>
+      <div class="srl-bar-container"><div class="srl-bar-fill ${s.color}" style="width:${s.pct}%"></div></div>
+      <span class="srl-profile-value">${s.avg}/5</span>
+    </div>`;
+  });
+
+  html += `</div>
+
+    <div class="results-section">
+      <h3>📋 Контекстуални данни</h3>
+      <table style="width:100%;border-collapse:collapse;font-size:0.84rem;">`;
+  demoSummary.forEach(d => {
+    html += `<tr><td style="padding:6px 8px;border-bottom:1px solid var(--border-light);color:var(--text-sec);width:45%;">${d.label}</td>
+      <td style="padding:6px 8px;border-bottom:1px solid var(--border-light);font-weight:500;">${d.value}</td></tr>`;
+  });
+  html += `</table></div>
+
+    <div class="results-section">
+      <h3>✍ Свободни отговори (ръчно оценяване)</h3>`;
+  freeItems.forEach(q => {
+    const ans = R[q.id] || '(няма отговор)';
+    html += `<div style="margin-bottom:14px;padding:10px 14px;background:var(--surface-alt);border-radius:var(--radius);">
+      <div style="font-size:0.75rem;font-weight:600;color:var(--text-muted);margin-bottom:3px;">${q.code} · ${q.level} · макс. ${q.points} т.</div>
+      <div style="font-size:0.84rem;font-weight:500;margin-bottom:5px;">${q.text}</div>
+      <div style="font-size:0.88rem;padding:7px 10px;background:white;border-radius:4px;border:1px solid var(--border);white-space:pre-wrap;">${ans}</div>
+    </div>`;
+  });
+
+  html += `</div>
+
+    <div class="results-section">
+      <h3>📊 Суров SRL запис</h3>
+      <table style="width:100%;border-collapse:collapse;font-size:0.8rem;">
+        <tr style="background:var(--surface-alt);">
+          <th style="padding:5px 6px;text-align:left;border:1px solid var(--border);">Конструкт</th>
+          <th style="padding:5px 6px;text-align:left;border:1px solid var(--border);">Айтем</th>
+          <th style="padding:5px 6px;text-align:center;border:1px solid var(--border);width:50px;">1–5</th>
+        </tr>`;
+  SRL_CONSTRUCTS.forEach(c => {
+    c.items.forEach(item => {
+      html += `<tr>
+        <td style="padding:4px 6px;border:1px solid var(--border);font-size:0.75rem;">${c.name}</td>
+        <td style="padding:4px 6px;border:1px solid var(--border);">${item.text.substring(0,55)}...</td>
+        <td style="padding:4px 6px;border:1px solid var(--border);text-align:center;font-weight:600;">${R[item.id]||'—'}</td>
+      </tr>`;
+    });
+  });
+  html += `</table></div>
+
+    <div class="nav-row">
+      <button class="btn btn-secondary" onclick="goPrev()">← Назад</button>
+      <button class="btn btn-primary" onclick="window.print()">🖨 Принтирай</button>
+    </div>`;
+
+  return html;
+}
+
+// ============================================================
+// EVENT BINDING
+// ============================================================
+function bindAll() {
+  document.querySelectorAll('.option-item, .demo-option').forEach(el => {
+    el.addEventListener('click', () => {
+      const qid = el.dataset.qid;
+      R[qid] = parseInt(el.dataset.val);
+      document.querySelectorAll(`[data-qid="${qid}"]`).forEach(o => o.classList.remove('selected'));
+      el.classList.add('selected');
+      el.querySelector('input').checked = true;
+    });
+  });
+  document.querySelectorAll('.likert-option').forEach(el => {
+    el.addEventListener('click', () => {
+      const qid = el.dataset.qid;
+      R[qid] = parseInt(el.dataset.val);
+      document.querySelectorAll(`.likert-option[data-qid="${qid}"]`).forEach(o => o.classList.remove('selected'));
+      el.classList.add('selected');
+    });
+  });
+  document.querySelectorAll('.free-text').forEach(el => {
+    el.addEventListener('input', () => { R[el.dataset.qid] = el.value; });
+  });
+  document.querySelectorAll('.ordering-item select, .matching-row select').forEach(el => {
+    el.addEventListener('change', () => {
+      const qid = el.dataset.qid, idx = parseInt(el.dataset.idx);
+      if (!R[qid]) R[qid] = [];
+      R[qid][idx] = parseInt(el.value);
+    });
+  });
+}
+
+// ============================================================
+// NAV
+// ============================================================
+function goNext() { if (currentSection < SECTIONS.length - 1) { currentSection++; render(); } }
+function goPrev() { if (currentSection > 0) { currentSection--; render(); } }
+function goTo(idx) { currentSection = idx; render(); }
+
+render();
+</script>
+</body>
+</html>
